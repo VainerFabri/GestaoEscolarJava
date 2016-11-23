@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Consutar Cursos | Gestão Escolar</title>
+</h:head>
+
+<h:body>
+	<ui:include src="navegador.xhtml" />
+	<h:form id="frmTabelas">
+	
+	<p align="center">
+		<p:graphicImage url="img/gestao.png" style="margin-top:5px; width:256px; height:112px;"/>
+	</p>
+	
+	<center><hr><h2>Cursos Cadastrados</h2></hr></center>
+	
+		<div class="ui-g">
+
+			<!-- CONSULTA DE CURSOS -->
+			<div class="ui-g-12" align="center">
+				<p:panel header="Consultar Cursos:"
+					style="width:400px; margin-top:10px">
+
+					<p:dataTable id="tblCursos" var="cursos"
+						value="#{cursosBean.cursos}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+						paginator="true" rows="10" style="margin-bottom:20px">
+
+						<p:column width="50">
+							<f:facet name="header">
+								<h:outputText value="Código" />
+							</f:facet>
+							<h:outputText value="#{cursos.codigo}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Nome" />
+							</f:facet>
+							<h:outputText value="#{cursos.nome}" />
+						</p:column>
+
+						<p:column width="35">
+							<p:commandButton icon="ui-icon-closethick" style="width:35px;"
+								actionListener="#{cursosBean.excluir(cursos)}"
+								update="frmTabelas">
+
+								<p:confirm header="Confirmação"
+									message="Deseja excluir esse regsitro?" icon="ui-icon-alert" />
+
+							</p:commandButton>
+
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Sim" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+
+								<p:commandButton value="Não" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+							</p:confirmDialog>
+
+						</p:column>
+
+					</p:dataTable>
+				</p:panel>
+			</div>
+		</div>
+
+	</h:form>
+
+</h:body>
+</html>

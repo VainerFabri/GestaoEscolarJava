@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:outputStylesheet library="css" name="style.css" />
+	
+	<p:growl id="growl" sticky="true" prependId="false" />
+
+	<h:form id="frmNavegador">
+		<p:dock position="bottom">
+			<p:menuitem value="Home" icon="img/home.png" url="Home.xhtml" />
+
+			<p:menuitem value="Cadastrar Alunos" icon="img/aluno.png"
+				onclick="PF('aluno').show();" />
+
+			<p:menuitem value="Cadastrar Professores" icon="img/professor.png"
+				onclick="PF('professor').show();" />
+
+			<p:menuitem value="Cadastrar Cursos" icon="img/cursos.png"
+				onclick="PF('cursos').show();" />
+				
+			<p:menuitem value="Consultar Alunos" icon="img/consultaaluno.png"
+				url="ConsultaAlunos.xhtml" />
+				
+			<p:menuitem value="Consultar Professores" icon="img/consultaprof.png"
+				url="ConsultaProfessores.xhtml" />
+				
+			<p:menuitem value="Consultar Cursos" icon="img/consultacurso.png"
+				url="ConsultaCursos.xhtml" />
+		</p:dock>
+	</h:form>
+
+	<!-- MODAL DE CADASTRO DE ALUNO -->
+
+	<p:dialog header="Cadastrar Aluno" widgetVar="aluno" modal="true"
+		width="380" height="300" resizable="false">
+		
+		<p:ajax event="open" listener="#{alunosBean.limpar}"></p:ajax>
+		
+		<h:form id="frmCadastroAluno">
+		<div id="conteudo">
+			<center>
+				<p:panelGrid columns="2">
+					<p:outputLabel value="RA: " for="raInput"/>
+					<p:inputMask  id="raInput" mask="9?99999" value="#{alunosBean.ra}" 
+					maxlength="2" required="true"
+						size="5" />
+
+					<p:outputLabel value="Nome: " />
+					<p:inputText value="#{alunosBean.nome}" />
+
+					<p:outputLabel value="Endereço: " />
+					<p:inputText value="#{alunosBean.endereco}" />
+
+					<p:outputLabel value="Telefone: " />
+					<p:inputMask mask="(99)99999-9999" value="#{alunosBean.telefone}"
+						maxlength="2" size="14" />
+
+					<p:outputLabel value="Cidade: " />
+					<p:inputText value="#{alunosBean.cidade}" />
+
+					<p:outputLabel value="Estado: " />
+					<p:inputText value="#{alunosBean.estado}" maxlength="2" size="2" />
+				</p:panelGrid>
+			</center>
+			<p align="center">
+				<p:commandButton id="btnSalvarAluno" actionListener="#{alunosBean.Salvar}"
+					update="growl"
+					value="Salvar" icon="ui-icon-check" style="margin-top:30px;"
+					 />
+			</p>
+		</div>
+		</h:form>
+
+	</p:dialog>
+
+
+
+	<!-- MODAL DE CADASTRO DE PROFESSOR -->
+	
+		<p:dialog header="Cadastrar Professor" widgetVar="professor" modal="true"
+		width="380" height="220" resizable="false">
+		
+		<p:ajax event="open" listener="#{professoresBean.limpar}"></p:ajax>
+		
+		<h:form id="frmCadastroProfessor">
+		<div id="conteudo">
+			<center>
+				<p:panelGrid columns="2">
+					<p:outputLabel value="RG: " for="rgInput"/>
+					<p:inputMask  id="rgInput" mask="9?99999999" value="#{professoresBean.rg}" 
+					maxlength="2" required="true"
+						size="8" />
+
+					<p:outputLabel value="Nome: " />
+					<p:inputText value="#{professoresBean.nome}" />
+
+					<p:outputLabel value="Endereço: " />
+					<p:inputText value="#{professoresBean.endereco}" />
+
+					<p:outputLabel value="Telefone: " />
+					<p:inputMask mask="(99)99999-9999" value="#{professoresBean.telefone}"
+						maxlength="2" size="14" />
+
+					
+					
+				</p:panelGrid>
+			</center>
+			<p align="center">
+				<p:commandButton actionListener="#{professoresBean.Salvar}"
+					update="growl"
+					value="Salvar" icon="ui-icon-check" style="margin-top:30px;"
+					 />
+			</p>
+		</div>
+		</h:form>
+
+	</p:dialog>
+	
+	<!-- MODAL DE CADASTRO DE CURSOS -->
+	<p:dialog header="Cadastrar Cursos" widgetVar="cursos" modal="true"
+		width="300" height="120" resizable="false">
+		
+		<p:ajax event="open" listener="#{cursosBean.limpar}"></p:ajax>
+		
+		<h:form id="frmCadastroCursos">
+		<center>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Código " for="codInput"/>
+				<p:inputMask id="codInput" mask="9?999" value="#{cursosBean.codigo}"
+				 maxlength="2" size="3" />
+
+				<p:outputLabel value="Nome:" />
+				<p:inputText value="#{cursosBean.nome}" />
+
+			</p:panelGrid>
+		</center>
+
+		<p align="center">
+			<p:commandButton actionListener="#{cursosBean.Salvar}"
+				update="growl"
+				value="Salvar" icon="ui-icon-check" style="margin-top:5px;"
+			/>
+		</p>
+		</h:form>
+	</p:dialog>
+</ui:composition>

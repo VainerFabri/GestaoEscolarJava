@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Consutar Alunos | Gestão Escolar</title>
+</h:head>
+
+<h:body>
+	<ui:include src="navegador.xhtml" />
+	<h:form id="frmTabelas">
+	
+	<p align="center">
+		<p:graphicImage url="img/gestao.png" style="margin-top:5px; width:256px; height:112px;"/>
+	</p>
+	
+	<center><hr><h2>Alunos Cadastrados</h2></hr></center>
+	
+		<div class="ui-g">
+			<!-- CONSULTA DE ALUNOS -->
+			<div class="ui-g-12" align="center">
+				<p:panel header="Consultar Alunos:"
+					style="width:600px; margin-top:10px">
+
+					<p:dataTable id="tblAlunos" var="aluno"
+						value="#{alunosBean.alunos}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+						paginator="true" rows="10" style="margin-bottom:20px">
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Ra" />
+							</f:facet>
+							<h:outputText value="#{aluno.ra}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Nome" />
+							</f:facet>
+							<h:outputText value="#{aluno.nome}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Endereço" />
+							</f:facet>
+							<h:outputText value="#{aluno.endereco}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Telefone" />
+							</f:facet>
+							<h:outputText value="#{aluno.telefone}" />
+						</p:column>
+
+						<p:column width="35">
+							<p:commandButton icon="ui-icon-closethick" style="width:35px;"
+								actionListener="#{alunosBean.excluir(aluno)}"
+								update="frmTabelas">
+								
+								<p:confirm header="Confirmação" message="Deseja excluir esse regsitro?"
+									icon="ui-icon-alert" />
+
+							</p:commandButton>
+							
+							<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+								<p:commandButton value="Sim" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+									
+								<p:commandButton value="Não" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+									
+							</p:confirmDialog>
+							
+						</p:column>
+
+
+
+					</p:dataTable>
+				</p:panel>
+			</div>
+		</div>
+
+	</h:form>
+
+</h:body>
+</html>
